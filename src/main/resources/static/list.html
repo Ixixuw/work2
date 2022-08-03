@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>用户信息</title>
+    <!-- 引入样式 -->
+
+    <script src="./common/vue-common.js"></script>
+    <style type="text/css">
+        .el-dialog__body {
+            padding: 10px 20px;
+        }
+        .el-main {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app" >
+    <template>
+        <el-row :gutter="5">
+            <el-col :span="24">
+                <el-form :inline="true" ref="paramData" :model="paramData" size="small" @submit.native.prevent>
+                    <el-form-item label="用户名">
+                        <el-input v-model="paramData.userName" placeholder="请输入用户名" clearable></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" icon="el-icon-search" @click="onSearch">查询</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <el-row :gutter="5">
+            <el-col :span="24">
+                <el-button type="primary" icon="el-icon-plus" @click="addRole" size="small">新增</el-button>
+            </el-col>
+        </el-row>
+        <el-table v-loading="loading" :data="tableData" style="width: 100%" highlight-current-row
+                  row-class-name="row_padding" header-row-class-name="head_padding" border>
+            <el-table-column label="用户名" prop="userName" width="240" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="年龄" prop="age" width="120" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="性别" prop="sex" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="邮箱" prop="email" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="电话" prop="tel" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="操作" fixed="right" width="180" align="center">
+                <template slot-scope="scope">
+                    <el-button @click.native.prevent="openDetail(scope.row)" type="text" size="small" >
+                        查看
+                    </el-button>
+                    <el-button @click.native.prevent="editDetail(scope.row)" type="text" size="small" >
+                        编辑
+                    </el-button>
+                    <el-button @click.native.prevent="deleteRow(scope.row)" type="text" size="small" >
+                        删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <div style="text-align: right;margin-top: 8px;">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="paramData.current"
+                    :page-sizes="[2, 10, 50, 100]"
+                    :page-size="paramData.size"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="paramData.totalRecord">
+            </el-pagination>
+        </div>
+        <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" @close="handleDialogClose" fullscreen>
+            <el-form ref="roleForm" :model="roleForm" :rules="roleFormRules" :label-width="formLabelWidth" :label-position="labelPosition">
+                <el-form-item label="用户名" prop="userName" required>
+                    <el-input v-model="roleForm.userName" placeholder="请填写用户名" style="width: 400px;" :maxlength="100" :disabled="formRead"></el-input>
+                </el-form-item>
+
+                <el-form-item label="年龄" prop="age" required>
+                   <el-input type="age" placeholder="请填写年龄"  v-model="roleForm.age" style="width: 400px;" :maxlength="100" :disabled="formRead" ></el-input>
+                </el-form-item>
+
+                <el-form-item label="性别" prop="sex" required>
+                    <el-input v-model="roleForm.sex" placeholder="请填写性别" style="width: 400px;" :maxlength="100" :disabled="formRead"></el-input>
+                </el-form-item>
+
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="roleForm.email" placeholder="请填写邮箱" style="width: 400px;" :maxlength="100" :disabled="formRead"></el-input>
+                </el-form-item>
+
+                <el-form-item label="电话" prop="tel">
+                    <el-input v-model="roleForm.tel" placeholder="请填写电话" style="width: 400px;" :maxlength="100" :disabled="formRead"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button v-if="!formRead" type="primary" @click="save()" size="small">保存</el-button>
+                    <el-button v-if="!formRead" @click="dialogFormVisible = false" size="small">取消</el-button>
+                    <el-button v-if="formRead" @click="dialogFormVisible = false" size="small">返回</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+    </template>
+</div>
+</body>
+<script src="./list.js" type="text/javascript"></script>
+</html>

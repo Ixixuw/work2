@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>操作日志</title>
+    <!-- 引入样式 -->
+
+    <script src="./common/vue-common.js"></script>
+    <style type="text/css">
+        .el-dialog__body {
+            padding: 10px 20px;
+        }
+        .el-main {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app" >
+    <template>
+        <el-row :gutter="5">
+            <el-col :span="24">
+                <el-form :inline="true" ref="paramData" :model="paramData" size="small" @submit.native.prevent>
+                    <el-form-item label="操作人">
+                        <el-input v-model="paramData.operateBy" placeholder="请输入操作用户名" clearable></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" icon="el-icon-search" @click="onSearch">查询</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <el-row :gutter="5">
+        </el-row>
+        <el-table v-loading="loading" :data="tableData" style="width: 100%" highlight-current-row
+                  row-class-name="row_padding" header-row-class-name="head_padding" border>
+            <el-table-column label="操作人" prop="operateBy" width="240"  show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="ip" prop="ip" width="240" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="操作日期" prop="operateDate" show-overflow-tooltip align="center"></el-table-column>
+            <el-table-column label="操作内容" prop="content" show-overflow-tooltip align="center"></el-table-column>
+
+        </el-table>
+        <div style="text-align: right;margin-top: 8px;">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="paramData.current"
+                    :page-sizes="[2, 10, 50, 100]"
+                    :page-size="paramData.size"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="paramData.totalRecord">
+            </el-pagination>
+        </div>
+    </template>
+</div>
+</body>
+<script src="./operate.js" type="text/javascript"></script>
+</html>

@@ -1,0 +1,48 @@
+.view-only .el-upload {
+    display: none;
+}
+
+.img-preview {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    display: block;
+}
+.el-upload-list--picture .el-upload-list__item{
+    position: relative;
+}
+.el-upload-list--picture .el-upload-list__item .el-upload-list__item-name {
+    margin-top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 93px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+.el-upload-list--picture .el-upload-list__item .el-upload-list__item-name i{
+    display: none;
+}
+.el-upload-list--picture .el-upload-list__item .el-icon-close{
+    z-index: 11;
+}
+.file-upload-container{
+    position: relative;
+}
+.upload-append{
+    position: absolute;
+    top: 0;
+    left: 87px;
+}
+.upload-append .el-button+.el-button{
+    margin-left: 3px;
+}
+.file-loading{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #999999;
+}

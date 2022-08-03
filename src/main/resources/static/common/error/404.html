@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .container {
+      margin: 0 auto;
+      width: 500px;
+      /* border: 1px red solid; */
+    }
+
+    .container>div[id$="wrap"] {
+      display: block;
+      clear: both;
+      *zoom: 1;
+    }
+
+    .container>div[id$="wrap"]:empty,
+    .container>div[class$="wrap"]:empty {
+      display: none;
+    }
+
+    #img_wrap {
+      margin: 0 auto;
+      width: 300px;
+      height: 200px;
+    }
+
+    #sorry_wrap {
+      margin-top: 40px;
+      line-height: 20px;
+      font-size: 20px;
+    }
+
+    #tips_wrap {
+      line-height: 28px;
+      font-size: 14px;
+      color: #888;
+      margin-top: 3px;
+    }
+
+    .line {
+      margin-top: 15px;
+      line-height: 1px;
+      height: 1px;
+      background-color: #DEDEE0;
+    }
+
+    #operate_wrap {
+      margin-top: 15px;
+    }
+
+    #operate_wrap a {
+      color: #177AE2;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <div id="img_wrap">
+    <img src="/images/404.jpg" alt="">
+  </div>
+
+  <div id="sorry_wrap">
+    无法找您想要访问的页面
+  </div>
+
+  <div id="tips_wrap">
+    错误原因可能是因为:您想查找的内容已被转移,更改或删除
+  </div>
+
+  <div class="line"></div>
+  <div id="operate_wrap">
+    <a href="javascript:window.history.go(-1);" class="">返回上一页</a>
+  </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+
+
+<script>
+  //监听窗口事件 开始
+  var reSize = function() {
+
+    var outerWidth = $(window).width();
+    var outerHeight = $(window).height();
+
+    var myHeight = $('.container').height();
+
+    $(".container").css({
+      'margin-top': (outerHeight / 2) - (myHeight * 0.67) + 'px'
+    });
+
+
+  };
+  $(window).bind("load resize", reSize);
+  setTimeout(reSize, 0);
+  //监听窗口事件 结束
+</script>
+
+</body>
+
+</html>
